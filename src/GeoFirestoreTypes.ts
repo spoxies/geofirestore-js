@@ -21,12 +21,23 @@ export namespace GeoFirestoreTypes {
     radius?: number;
     limit?: number;
   }
-  export interface QueryDocumentSnapshot {
+  export interface QueryDocumentSnapshot{
     exists: boolean;
     id: string;
-    data: () => DocumentData | any;
+    data: (options?: GeoFirestoreTypes.SnapshotOptions) => DocumentData | undefined;
+    get(fieldPath:  string |
+                    GeoFirestoreTypes.cloud.FieldPath |
+                    GeoFirestoreTypes.web.FieldPath,
+        options:    GeoFirestoreTypes.SnapshotOptions
+    ): any;
+    isEqual(other:  GeoFirestoreTypes.cloud.DocumentSnapshot |
+                    GeoFirestoreTypes.web.DocumentSnapshot
+    ): boolean;
     distance: number;
+    ref: any;
+
   }
+
   export interface SetOptions {
     customKey?: string;
     merge?: boolean;
