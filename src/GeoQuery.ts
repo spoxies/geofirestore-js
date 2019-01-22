@@ -139,7 +139,8 @@ export class GeoQuery {
     opStr: GeoFirestoreTypes.WhereFilterOp,
     value: any
   ): GeoQuery {
-    return new GeoQuery(this._query.where((fieldPath ? ('d.' + fieldPath) : fieldPath), opStr, value), this._queryCriteria);
+    const path = (!String(fieldPath).startsWith('d.') ? 'd.' + fieldPath : fieldPath);
+    return new GeoQuery(this._query.where((fieldPath ? (path) : fieldPath), opStr, value), this._queryCriteria);
   }
 
   /**
