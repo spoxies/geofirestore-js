@@ -6,3 +6,4 @@ export * from './GeoFirestoreTypes';
 export * from './GeoQuery';
 export * from './GeoQuerySnapshot';
 export * from './GeoWriteBatch';
+export * from './utils';
