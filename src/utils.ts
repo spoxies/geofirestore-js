@@ -285,7 +285,7 @@ export function encodeUpdateDocument(data: GeoFirestoreTypes.UpdateData, customK
  * @param document A Firestore document.
  * @param customKey The key of the document to use as the location. Otherwise we default to `coordinates`.
  * @param flag Tells function supress errors.
- * @return The key for the location field of a document. 
+ * @return The key for the location field of a document.
  */
 export function findCoordinatesKey(document: GeoFirestoreTypes.DocumentData, customKey?: string, flag = false): string {
   let error: string;
@@ -312,26 +312,6 @@ export function findCoordinatesKey(document: GeoFirestoreTypes.DocumentData, cus
   }
 
   return key;
-}
-
-/**
- * Creates GeoFirestore QueryDocumentSnapshot by pulling data out of original Firestore QueryDocumentSnapshot and strip GeoFirsetore
- * Document data, such as geohash and coordinates.
- *
- * @param snapshot The QueryDocumentSnapshot.
- * @param center The center to calculate the distance of the Document from the query origin.
- * @return The snapshot as a GeoFirestore QueryDocumentSnapshot.
- */
-export function generateGeoQueryDocumentSnapshot(
-  snapshot: GeoFirestoreTypes.web.QueryDocumentSnapshot | GeoFirestoreTypes.cloud.QueryDocumentSnapshot,
-  center?: GeoFirestoreTypes.web.GeoPoint | GeoFirestoreTypes.cloud.GeoPoint
-): GeoFirestoreTypes.QueryDocumentSnapshot {
-  const decoded = decodeGeoQueryDocumentSnapshotData(snapshot.data() as GeoFirestoreTypes.Document, center);
-  return {
-    exists: snapshot.exists,
-    id: snapshot.id,
-    ...decoded
-  };
 }
 
 /**
@@ -456,7 +436,7 @@ export function toGeoPoint(latitude: number, longitude: number): GeoFirestoreTyp
  *
  * @param data The GeoDocument object to be validated.
  * @param flag Tells function to send up boolean if valid instead of throwing an error.
- * @return Flag if data is valid 
+ * @return Flag if data is valid
  */
 export function validateGeoDocument(data: GeoFirestoreTypes.Document, flag = false): boolean {
   let error: string;

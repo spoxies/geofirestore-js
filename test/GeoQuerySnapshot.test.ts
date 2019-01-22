@@ -60,8 +60,7 @@ describe('GeoQuerySnapshot Tests:', () => {
         .then((snapshot) => {
           const docs = (new GeoQuerySnapshot(snapshot)).docs;
           const results = docs.map((d) => {
-            d.data = d.data();
-            return d;
+            return d.data();
           });
           expect(results).to.have.deep.members([{
             exists: true, id: 'loc1',
@@ -98,8 +97,7 @@ describe('GeoQuerySnapshot Tests:', () => {
         .then((snapshot) => {
           const docs = (new GeoQuerySnapshot(snapshot, new firebase.firestore.GeoPoint(2, 5))).docs;
           const results = docs.map((d) => {
-            d.data = d.data();
-            return d;
+            return d.data();
           });
           expect(results).to.have.deep.members([{
             exists: true, id: 'loc1',

@@ -1,5 +1,6 @@
 import { GeoFirestoreTypes } from './GeoFirestoreTypes';
-import { generateGeoQueryDocumentSnapshot, validateLocation } from './utils';
+import { GeoQueryDocumentSnapshot } from './GeoQueryDocumentSnapshot';
+import { validateLocation } from './utils';
 
 /**
  * A `GeoQuerySnapshot` contains zero or more `QueryDocumentSnapshot` objects
@@ -25,7 +26,7 @@ export class GeoQuerySnapshot {
     }
 
     this._docs = (_querySnapshot as GeoFirestoreTypes.web.QuerySnapshot).docs
-      .map((snapshot: GeoFirestoreTypes.web.QueryDocumentSnapshot) => generateGeoQueryDocumentSnapshot(snapshot, _center));
+      .map((snapshot: GeoFirestoreTypes.web.QueryDocumentSnapshot) => new GeoQueryDocumentSnapshot(snapshot, _center));
   }
 
   /** An array of all the documents in the GeoQuerySnapshot. */
@@ -43,18 +44,19 @@ export class GeoQuerySnapshot {
     return this._docs.length ? false : true;
   }
 
+
   /**
    * Returns an array of the documents changes since the last snapshot. If
    * this is the first snapshot, all documents will be in the list as added
    * changes.
-   * 
+   *
    * @returns Array of DocumentChanges.
    */
   public docChanges(): GeoFirestoreTypes.DocumentChange[] {
     return (this._querySnapshot.docChanges() as GeoFirestoreTypes.web.DocumentChange[])
       .map((change: GeoFirestoreTypes.web.DocumentChange) => {
         return {
-          doc: generateGeoQueryDocumentSnapshot(change.doc, this._center),
+          doc: new GeoQueryDocumentSnapshot(change.doc, this._center),
           newIndex: change.newIndex,
           oldIndex: change.oldIndex,
           type: change.type

@@ -60,6 +60,7 @@ describe('GeoQuery Tests:', () => {
         const subscription = query.where('count', '>', 2).onSnapshot((snapshot) => {
           subscription();
           const result = snapshot.docs.map(d => d.data());
+
           expect(result).to.have.deep.members([
             { key: 'loc4', coordinates: new firebase.firestore.GeoPoint(5, 5), count: 3 },
             { key: 'loc5', coordinates: new firebase.firestore.GeoPoint(67, 55), count: 4 },
