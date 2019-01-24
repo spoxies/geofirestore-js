@@ -271,7 +271,8 @@ export function encodeUpdateDocument(data: GeoFirestoreTypes.UpdateData, customK
       result['g'] = encodeGeohash(result['l']);
     }
     Object.getOwnPropertyNames(data).forEach((prop: string) => {
-      result['d.' + prop] = data[prop];
+      const path = (!prop.startsWith('d.') ? 'd.' + prop : prop);
+      result[path] = data[prop];
     });
     return result as GeoFirestoreTypes.UpdateData;
   } else {
